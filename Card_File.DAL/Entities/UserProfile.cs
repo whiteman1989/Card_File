@@ -15,5 +15,7 @@ namespace Card_File.DAL.Entities
         public string FirstName { get; set; }
         public string lastName { get; set; }
         public virtual ApplicationUser ApplicationUser { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }
+        public virtual ICollection<TextMaterial> TextMaterials { get; set; }
     }
 }
