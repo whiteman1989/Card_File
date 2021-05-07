@@ -4,7 +4,10 @@ using System.Text;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Identity;
 using Card_File.DAL;
+using Card_File.DAL.Entities;
+using Card_File.DAL.EF;
 
 namespace Card_File.BLL
 {
@@ -13,6 +16,11 @@ namespace Card_File.BLL
         public static IServiceCollection AddBllServices(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDataServices(configuration);
+
+            services.AddIdentityCore<ApplicationUser>()
+                .AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationContext>();
+
             return services;
         }
     }

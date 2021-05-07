@@ -19,7 +19,6 @@ namespace Card_File.DAL.EF
         public ApplicationContext(DbContextOptions<ApplicationContext> options)
             : base(options)
         {
-            Database.EnsureCreated();
         }
     }
 }

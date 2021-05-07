@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Card_File.DAL.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20210506142059_InitialCreate")]
+    [Migration("20210507172726_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
