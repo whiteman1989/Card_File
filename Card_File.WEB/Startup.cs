@@ -29,6 +29,8 @@ namespace Card_File.WEB
             {
                 configuration.RootPath = "ClientApp/dist";
             });
+
+            //Add services from BLL
             services.AddBllServices(Configuration);
         }
 

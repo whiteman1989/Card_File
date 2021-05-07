@@ -9,12 +9,12 @@ namespace Card_File.DAL.Interfaces
 {
     public interface IUnitOfWork : IDisposable
     {
-        public IRepository<TextMaterial> TextMaterials { get; set; }
-        public IRepository<MaterialPart> MaterialParts { get; set; }
-        public IRepository<UserProfile> UserProfiles { get; set; }
-        public IRepository<Category> Categories { get; set; }
-        public IRepository<Comment> Comments { get; set; }
-        public IRepository<Tag> Tags { get; set; }
+        public IRepository<TextMaterial> TextMaterials { get;}
+        public IRepository<MaterialPart> MaterialParts { get;}
+        public IRepository<UserProfile> UserProfiles { get;}
+        public IRepository<Category> Categories { get;}
+        public IRepository<Comment> Comments { get;}
+        public IRepository<Tag> Tags { get;}
         void Save();
         Task SaveAsync();
     }
