@@ -8,12 +8,12 @@ namespace Card_File.BLL.Interfaces
 {
     public interface ITagService
     {
-        Task CreateTag(TagDto tag);
-        Task UpdateTag(TagDto tag);
-        Task DeleteTagBuId(int id);
-        Task<IEnumerable<TagDto>> GetTags();
-        Task<IEnumerable<TagDto>> GetTagsWithDetails();
-        Task<TagDto> GetTagByIdWithDateils(int id);
-        Task<IEnumerable<TagDto>> FindTags(string term);
+        Task CreateTagAsync(TagDto tag);
+        Task UpdateTagAsync(TagDto tag);
+        Task DeleteTagBuIdAsync(int id);
+        Task<IEnumerable<TagDto>> GetTagsAsync();
+        Task<IEnumerable<TagDto>> GetTagsWithDetailsAsync();
+        Task<TagDto> GetTagByIdWithDateilsAsync(int id);
+        Task<IEnumerable<TagDto>> FindTagsAsync(string term);
     }
 }
