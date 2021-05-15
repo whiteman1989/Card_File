@@ -21,7 +21,7 @@ namespace Card_File.DAL.Interfaces
         /// </summary>
         /// <param name="id">The unique item Id</param>
         /// <returns>A T object for the id specified</returns>
-        Task<T> Get(int id);
+        Task<T> GetAsync(int id);
 
         /// <summary>
         /// Get T objects that satisfy the conditions of the predicate
@@ -34,7 +34,7 @@ namespace Card_File.DAL.Interfaces
         /// Create new item in repository
         /// </summary>
         /// <param name="item">T object for added to repository</param>
-        Task Create(T item);
+        Task CreateAsync(T item);
 
         /// <summary>
         /// Update object in repository
@@ -47,6 +47,6 @@ namespace Card_File.DAL.Interfaces
         /// </summary>
         /// <param name="id">The unique item Id</param>
         /// <returns></returns>
-        Task Delete(int id);
+        Task DeleteAsync(int id);
     }
 }

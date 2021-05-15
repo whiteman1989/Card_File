@@ -20,12 +20,12 @@ namespace Card_File.DAL.Repositories
             _dbSet = _context.Set<T>();
         }
 
-        public async Task Create(T item)
+        public async Task CreateAsync(T item)
         {
             await _dbSet.AddAsync(item);
         }
 
-        public async Task Delete(int id)
+        public async Task DeleteAsync(int id)
         {
             var item = await _dbSet.FindAsync(id);
             _dbSet.Remove(item);
@@ -36,7 +36,7 @@ namespace Card_File.DAL.Repositories
             return _dbSet.Where(predicate);
         }
 
-        public async Task<T> Get(int id)
+        public async Task<T> GetAsync(int id)
         {
             return await _dbSet.FindAsync(id);
         }
