@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Text;
 using Card_File.DAL.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace Card_File.DAL.Repositories
 {
@@ -19,14 +20,14 @@ namespace Card_File.DAL.Repositories
             _dbSet = _context.Set<T>();
         }
 
-        public void Create(T item)
+        public async Task Create(T item)
         {
-            _dbSet.Add(item);
+            await _dbSet.AddAsync(item);
         }
 
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
-            var item = _dbSet.Find(id);
+            var item = await _dbSet.FindAsync(id);
             _dbSet.Remove(item);
         }
 
@@ -35,9 +36,9 @@ namespace Card_File.DAL.Repositories
             return _dbSet.Where(predicate);
         }
 
-        public T Get(int id)
+        public async Task<T> Get(int id)
         {
-            return _dbSet.Find(id);
+            return await _dbSet.FindAsync(id);
         }
 
         public IQueryable<T> GetAll()

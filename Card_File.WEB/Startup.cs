@@ -32,6 +32,7 @@ namespace Card_File.WEB
 
             //Add services from BLL
             services.AddBllServices(Configuration);
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

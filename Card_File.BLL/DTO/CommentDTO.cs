@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Card_File.DAL.Entities
+namespace Card_File.BLL.DTO
 {
-    public class Comment
+    public class CommentDto
     {
         public int Id { get; set; }
         public string Text { get; set; }
@@ -14,8 +14,7 @@ namespace Card_File.DAL.Entities
         public bool IsHide { get; set; }
         public DateTime Date { get; set; }
         public DateTime EditDate { get; set; }
-        public virtual UserProfile UserProfile { get; set; }
-        public virtual TextMaterial TextMaterial { get; set; }
-
+        public virtual UserDto User { get; set; }
+        public virtual TextMaterialDto TextMaterial { get; set; }
     }
 }

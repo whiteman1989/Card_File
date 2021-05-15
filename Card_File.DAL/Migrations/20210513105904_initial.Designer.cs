@@ -4,14 +4,16 @@ using Card_File.DAL.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Card_File.DAL.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20210513105904_initial")]
+    partial class initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -91,7 +93,7 @@ namespace Card_File.DAL.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("CategoryName")
+                    b.Property<string>("Categoryname")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -373,18 +375,18 @@ namespace Card_File.DAL.Migrations
             modelBuilder.Entity("Card_File.DAL.Entities.Comment", b =>
                 {
                     b.HasOne("Card_File.DAL.Entities.TextMaterial", "TextMaterial")
-                        .WithMany("Comments")
+                        .WithMany()
                         .HasForeignKey("TextMaterialId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Card_File.DAL.Entities.UserProfile", "UserProfile")
+                    b.HasOne("Card_File.DAL.Entities.UserProfile", "GetUserProfile")
                         .WithMany("Comments")
                         .HasForeignKey("UserProfileId");
 
-                    b.Navigation("TextMaterial");
+                    b.Navigation("GetUserProfile");
 
-                    b.Navigation("UserProfile");
+                    b.Navigation("TextMaterial");
                 });
 
             modelBuilder.Entity("Card_File.DAL.Entities.MaterialPart", b =>
@@ -500,8 +502,6 @@ namespace Card_File.DAL.Migrations
 
             modelBuilder.Entity("Card_File.DAL.Entities.TextMaterial", b =>
                 {
-                    b.Navigation("Comments");
-
                     b.Navigation("MaterialParts");
                 });
 

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Card_File.DAL.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20210507172726_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20210515110226_Comment.GetUserProfile to UserProfile")]
+    partial class CommentGetUserProfiletoUserProfile
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -93,7 +93,7 @@ namespace Card_File.DAL.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Categoryname")
+                    b.Property<string>("CategoryName")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -114,9 +114,6 @@ namespace Card_File.DAL.Migrations
                     b.Property<DateTime>("EditDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("GetUserProfileId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<int>("Rating")
                         .HasColumnType("int");
 
@@ -126,14 +123,14 @@ namespace Card_File.DAL.Migrations
                     b.Property<int>("TextMaterialId")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserProfileId")
-                        .HasColumnType("int");
+                    b.Property<string>("UserProfileId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("GetUserProfileId");
-
                     b.HasIndex("TextMaterialId");
+
+                    b.HasIndex("UserProfileId");
 
                     b.ToTable("Comments");
                 });
@@ -166,10 +163,15 @@ namespace Card_File.DAL.Migrations
 
             modelBuilder.Entity("Card_File.DAL.Entities.Tag", b =>
                 {
-                    b.Property<string>("Text")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.HasKey("Text");
+                    b.Property<string>("Text")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
 
                     b.ToTable("Tags");
                 });
@@ -193,20 +195,17 @@ namespace Card_File.DAL.Migrations
                     b.Property<DateTime>("EditDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("GetUserProfileId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserProfileId")
-                        .HasColumnType("int");
+                    b.Property<string>("UserProfileId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("GetUserProfileId");
+                    b.HasIndex("UserProfileId");
 
                     b.ToTable("TextMaterials");
                 });
@@ -360,13 +359,13 @@ namespace Card_File.DAL.Migrations
 
             modelBuilder.Entity("TagTextMaterial", b =>
                 {
-                    b.Property<string>("TagsText")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("TagsId")
+                        .HasColumnType("int");
 
                     b.Property<int>("TextMaterialsId")
                         .HasColumnType("int");
 
-                    b.HasKey("TagsText", "TextMaterialsId");
+                    b.HasKey("TagsId", "TextMaterialsId");
 
                     b.HasIndex("TextMaterialsId");
 
@@ -375,19 +374,19 @@ namespace Card_File.DAL.Migrations
 
             modelBuilder.Entity("Card_File.DAL.Entities.Comment", b =>
                 {
-                    b.HasOne("Card_File.DAL.Entities.UserProfile", "GetUserProfile")
-                        .WithMany("Comments")
-                        .HasForeignKey("GetUserProfileId");
-
                     b.HasOne("Card_File.DAL.Entities.TextMaterial", "TextMaterial")
-                        .WithMany()
+                        .WithMany("Comments")
                         .HasForeignKey("TextMaterialId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("GetUserProfile");
+                    b.HasOne("Card_File.DAL.Entities.UserProfile", "UserProfile")
+                        .WithMany("Comments")
+                        .HasForeignKey("UserProfileId");
 
                     b.Navigation("TextMaterial");
+
+                    b.Navigation("UserProfile");
                 });
 
             modelBuilder.Entity("Card_File.DAL.Entities.MaterialPart", b =>
@@ -407,7 +406,7 @@ namespace Card_File.DAL.Migrations
 
                     b.HasOne("Card_File.DAL.Entities.UserProfile", "GetUserProfile")
                         .WithMany("TextMaterials")
-                        .HasForeignKey("GetUserProfileId");
+                        .HasForeignKey("UserProfileId");
 
                     b.Navigation("Category");
 
@@ -480,7 +479,7 @@ namespace Card_File.DAL.Migrations
                 {
                     b.HasOne("Card_File.DAL.Entities.Tag", null)
                         .WithMany()
-                        .HasForeignKey("TagsText")
+                        .HasForeignKey("TagsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -503,6 +502,8 @@ namespace Card_File.DAL.Migrations
 
             modelBuilder.Entity("Card_File.DAL.Entities.TextMaterial", b =>
                 {
+                    b.Navigation("Comments");
+
                     b.Navigation("MaterialParts");
                 });
 

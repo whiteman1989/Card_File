@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace Card_File.DAL.Interfaces
 {
@@ -20,7 +21,7 @@ namespace Card_File.DAL.Interfaces
         /// </summary>
         /// <param name="id">The unique item Id</param>
         /// <returns>A T object for the id specified</returns>
-        T Get(int id);
+        Task<T> Get(int id);
 
         /// <summary>
         /// Get T objects that satisfy the conditions of the predicate
@@ -33,8 +34,7 @@ namespace Card_File.DAL.Interfaces
         /// Create new item in repository
         /// </summary>
         /// <param name="item">T object for added to repository</param>
-
-        void Create(T item);
+        Task Create(T item);
 
         /// <summary>
         /// Update object in repository
@@ -47,6 +47,6 @@ namespace Card_File.DAL.Interfaces
         /// </summary>
         /// <param name="id">The unique item Id</param>
         /// <returns></returns>
-        void Delete(int id);
+        Task Delete(int id);
     }
 }

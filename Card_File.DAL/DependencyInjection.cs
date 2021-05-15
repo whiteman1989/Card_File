@@ -14,7 +14,8 @@ namespace Card_File.DAL
         public static IServiceCollection AddDataServices (this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<ApplicationContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"), 
+                x => x.MigrationsAssembly("Card_File.DAL"))); //Runs migrations in DTO Assembly
             return services;
         }
     }

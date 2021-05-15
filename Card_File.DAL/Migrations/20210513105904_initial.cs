@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Card_File.DAL.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -63,11 +63,13 @@ namespace Card_File.DAL.Migrations
                 name: "Tags",
                 columns: table => new
                 {
-                    Text = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Text = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Tags", x => x.Text);
+                    table.PrimaryKey("PK_Tags", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -202,12 +204,11 @@ namespace Card_File.DAL.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UserProfileId = table.Column<int>(type: "int", nullable: false),
+                    UserProfileId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     CategotyId = table.Column<int>(type: "int", nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EditDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CategoryId = table.Column<int>(type: "int", nullable: true),
-                    GetUserProfileId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    CategoryId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -219,8 +220,8 @@ namespace Card_File.DAL.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_TextMaterials_UserProfiles_GetUserProfileId",
-                        column: x => x.GetUserProfileId,
+                        name: "FK_TextMaterials_UserProfiles_UserProfileId",
+                        column: x => x.UserProfileId,
                         principalTable: "UserProfiles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -234,11 +235,10 @@ namespace Card_File.DAL.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Text = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Rating = table.Column<int>(type: "int", nullable: false),
-                    UserProfileId = table.Column<int>(type: "int", nullable: false),
+                    UserProfileId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     TextMaterialId = table.Column<int>(type: "int", nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EditDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    GetUserProfileId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    EditDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -250,8 +250,8 @@ namespace Card_File.DAL.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Comments_UserProfiles_GetUserProfileId",
-                        column: x => x.GetUserProfileId,
+                        name: "FK_Comments_UserProfiles_UserProfileId",
+                        column: x => x.UserProfileId,
                         principalTable: "UserProfiles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -283,17 +283,17 @@ namespace Card_File.DAL.Migrations
                 name: "TagTextMaterial",
                 columns: table => new
                 {
-                    TagsText = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    TagsId = table.Column<int>(type: "int", nullable: false),
                     TextMaterialsId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TagTextMaterial", x => new { x.TagsText, x.TextMaterialsId });
+                    table.PrimaryKey("PK_TagTextMaterial", x => new { x.TagsId, x.TextMaterialsId });
                     table.ForeignKey(
-                        name: "FK_TagTextMaterial_Tags_TagsText",
-                        column: x => x.TagsText,
+                        name: "FK_TagTextMaterial_Tags_TagsId",
+                        column: x => x.TagsId,
                         principalTable: "Tags",
-                        principalColumn: "Text",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_TagTextMaterial_TextMaterials_TextMaterialsId",
@@ -343,14 +343,14 @@ namespace Card_File.DAL.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Comments_GetUserProfileId",
-                table: "Comments",
-                column: "GetUserProfileId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Comments_TextMaterialId",
                 table: "Comments",
                 column: "TextMaterialId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Comments_UserProfileId",
+                table: "Comments",
+                column: "UserProfileId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_MaterialParts_TextMaterialId",
@@ -368,9 +368,9 @@ namespace Card_File.DAL.Migrations
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TextMaterials_GetUserProfileId",
+                name: "IX_TextMaterials_UserProfileId",
                 table: "TextMaterials",
-                column: "GetUserProfileId");
+                column: "UserProfileId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
