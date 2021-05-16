@@ -7,7 +7,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 using Card_File.BLL;
+using Card_File.BLL.Infrastructure;
+using Card_File.BLL.Interfaces;
+using Card_File.BLL.Services;
 
 namespace Card_File.WEB
 {
@@ -23,6 +28,22 @@ namespace Card_File.WEB
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.RequireHttpsMetadata = false;
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidIssuer = AuthOption.ISSUER,
+                        
+                        ValidateAudience = true,
+                        ValidAudience = AuthOption.AUDIENCE,
+                        ValidateLifetime = true,
+                        IssuerSigningKey = AuthOption.GetSecurityKey(),
+                        ValidateIssuerSigningKey = true,
+                    };
+                });
             services.AddControllersWithViews();
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -32,6 +53,7 @@ namespace Card_File.WEB
 
             //Add services from BLL
             services.AddBllServices(Configuration);
+            services.AddTransient<IUserService, UserService>();
 
         }
 
@@ -57,6 +79,9 @@ namespace Card_File.WEB
             }
 
             app.UseRouting();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

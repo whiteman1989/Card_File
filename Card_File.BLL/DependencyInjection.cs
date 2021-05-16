@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Card_File.DAL;
 using Card_File.DAL.Entities;
 using Card_File.DAL.EF;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Card_File.BLL
 {
