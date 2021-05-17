@@ -20,7 +20,7 @@ namespace Card_File.WEB.Controllers
             _userService = userService;
         }
 
-        [HttpPost("ligIn")]
+        [HttpPost("logIn")]
         public async Task<ActionResult<UserSesion>> LogIn([FromBody] LoginQuery login)
         {
             var result = await _userService.LogInAsync(login);
