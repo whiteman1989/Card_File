@@ -40,7 +40,7 @@ namespace Card_File.WEB
                         ValidateAudience = true,
                         ValidAudience = AuthOption.AUDIENCE,
                         ValidateLifetime = true,
-                        IssuerSigningKey = AuthOption.GetSecurityKey(),
+                        IssuerSigningKey = AuthOption.GetSecurityKey(Configuration["AuthOptions:Key"]),
                         ValidateIssuerSigningKey = true,
                     };
                 });

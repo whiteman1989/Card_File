@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Builder;
 
 namespace Card_File.BLL.Infrastructure
 {
@@ -9,11 +11,11 @@ namespace Card_File.BLL.Infrastructure
     {
         public const string ISSUER = "CardFileServer";
         public const string AUDIENCE = "CardFileClient";
-        const string KEY = "test_scretkey!567123";
         public const int LIFETIME = 10;
-        public static SymmetricSecurityKey GetSecurityKey()
+
+        public static SymmetricSecurityKey GetSecurityKey(string key)
         {
-            return new SymmetricSecurityKey(Encoding.ASCII.GetBytes(KEY));
+            return new SymmetricSecurityKey(Encoding.ASCII.GetBytes(key));
         }
     }
 }
