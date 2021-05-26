@@ -43,7 +43,6 @@ namespace Card_File.BLL.Services
                 var result = await _signInManager.CheckPasswordSignInAsync(user, loginQuery.Password, false);
                 if(result.Succeeded)
                 {
-                    await  _signInManager.SignInAsync(user, false);
                     return new UserSesion
                     {
                         Email = user.Email,

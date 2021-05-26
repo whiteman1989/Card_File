@@ -18,7 +18,11 @@ namespace Card_File.BLL
         {
             services.AddDataServices(configuration);
 
-            services.AddIdentity<ApplicationUser, IdentityRole>()
+            services.AddIdentityCore<ApplicationUser>()
+                .AddSignInManager<SignInManager<ApplicationUser>>()
+                .AddRoles<IdentityRole>()
+                .AddUserManager<UserManager<ApplicationUser>>()
+                .AddRoleManager<RoleManager<IdentityRole>>()
                 .AddEntityFrameworkStores<ApplicationContext>();
 
             return services;

@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Card_File.WEB.Controllers
 {
+    
     [Route("api/[controller]")]
     [ApiController]
     public class UsersController : ControllerBase

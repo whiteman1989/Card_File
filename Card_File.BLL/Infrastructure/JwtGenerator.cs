@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
-using System.Text;
 using Card_File.BLL.Interfaces;
 using Card_File.DAL.Entities;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
@@ -29,7 +26,7 @@ namespace Card_File.BLL.Infrastructure
 				new Claim(ClaimsIdentity.DefaultNameClaimType, user.UserName)
 			};
 
-			if (roles != null || !roles.Any())
+			if (roles != null && roles.Any())
 			{
 				foreach (var role in roles)
 				{
@@ -44,7 +41,7 @@ namespace Card_File.BLL.Infrastructure
 			ClaimsIdentity identity = new ClaimsIdentity(claims, "Token",
 				ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
 
-			var credentials = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature);
+			var credentials = new SigningCredentials(_key, SecurityAlgorithms.HmacSha256);
 			var jwt = new JwtSecurityToken(
 				issuer: AuthOption.ISSUER,
 				audience: AuthOption.AUDIENCE,

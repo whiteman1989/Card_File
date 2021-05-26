@@ -15,7 +15,7 @@ namespace Card_File.BLL.Infrastructure
 
         public static SymmetricSecurityKey GetSecurityKey(string key)
         {
-            return new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
+            return new SymmetricSecurityKey(Encoding.ASCII.GetBytes(key));
         }
     }
 }
