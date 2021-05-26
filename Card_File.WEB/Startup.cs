@@ -37,7 +37,7 @@ namespace Card_File.WEB
                         ValidateIssuer = true,
                         ValidIssuer = AuthOption.ISSUER,
                         
-                        ValidateAudience = true,
+                        ValidateAudience = false,
                         ValidAudience = AuthOption.AUDIENCE,
                         ValidateLifetime = true,
                         IssuerSigningKey = AuthOption.GetSecurityKey(Configuration["AuthOptions:Key"]),
@@ -50,6 +50,8 @@ namespace Card_File.WEB
             {
                 configuration.RootPath = "ClientApp/dist";
             });
+
+            services.AddScoped<IJwtGenerator, JwtGenerator>();
 
             //Add services from BLL
             services.AddBllServices(Configuration);
@@ -72,6 +74,7 @@ namespace Card_File.WEB
             }
 
             app.UseHttpsRedirection();
+            app.UseDefaultFiles();
             app.UseStaticFiles();
             if (!env.IsDevelopment())
             {

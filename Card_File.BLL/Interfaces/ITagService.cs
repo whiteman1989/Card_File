@@ -13,7 +13,7 @@ namespace Card_File.BLL.Interfaces
         Task DeleteTagBuIdAsync(int id);
         Task<IEnumerable<TagDto>> GetTagsAsync();
         Task<IEnumerable<TagDto>> GetTagsWithDetailsAsync();
-        Task<TagDto> GetTagByIdWithDateilsAsync(int id);
+        Task<TagDto> GetTagByIdWithDetailsAsync(int id);
         Task<IEnumerable<TagDto>> FindTagsAsync(string term);
     }
 }

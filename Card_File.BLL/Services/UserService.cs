@@ -18,27 +18,36 @@ namespace Card_File.BLL.Services
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly ApplicationContext _context;
+        private readonly IJwtGenerator _jwtGenerator;
         public UserService(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager,
-            SignInManager<ApplicationUser> signInManager, ApplicationContext context)
+            SignInManager<ApplicationUser> signInManager, ApplicationContext context, IJwtGenerator jwtGenerator)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _signInManager = signInManager;
             _context = context;
+            _jwtGenerator = jwtGenerator;
         }
 
         public async Task<UserSesion> LogInAsync(LoginQuery loginQuery)
         {
             var user = await _userManager.FindByEmailAsync(loginQuery.Email);
+            IEnumerable<string> roles = null;
+            if (user != null)
+            {
+                roles = await _userManager.GetRolesAsync(user);
+            }
+            
             if (user is object)
             {
                 var result = await _signInManager.CheckPasswordSignInAsync(user, loginQuery.Password, false);
                 if(result.Succeeded)
                 {
+                    await  _signInManager.SignInAsync(user, false);
                     return new UserSesion
                     {
                         Email = user.Email,
-                        Token = "assss"
+                        Token = _jwtGenerator.CreateToken(user, roles)
                     };
                 }
             }

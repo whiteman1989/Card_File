@@ -8,13 +8,13 @@ namespace Card_File.BLL.Interfaces
 {
     public interface ICategoryService
     {
-        Task CreateCategoryAsunc(CategoryDto category);
+        Task CreateCategoryAsync(CategoryDto category);
         Task UpdateCategoryAsync(CategoryDto category);
         Task DeleteCategoryByIdAsync(int id);
         Task<IEnumerable<CategoryDto>> GetCategoriesAsync();
         Task<CategoryDto> GetCategoryByIdWithDetailsAsync(int id);
         Task<IEnumerable<CategoryDto>> GetCategoriesWithDetailsAsync();
-        Task<IEnumerable<CategoryDto>> FindCetegoryesAsync(string term);
+        Task<IEnumerable<CategoryDto>> FindCategoriesAsync(string term);
 
     }
 }

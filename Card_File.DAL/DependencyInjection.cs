@@ -15,7 +15,7 @@ namespace Card_File.DAL
         {
             services.AddDbContext<ApplicationContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"), 
-                x => x.MigrationsAssembly("Card_File.DAL"))); //Runs migrations in DTO Assembly
+                x => x.MigrationsAssembly("Card_File.DAL"))); //Runs migrations in DAL Assembly
             return services;
         }
     }

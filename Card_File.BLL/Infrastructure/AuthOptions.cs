@@ -11,11 +11,11 @@ namespace Card_File.BLL.Infrastructure
     {
         public const string ISSUER = "CardFileServer";
         public const string AUDIENCE = "CardFileClient";
-        public const int LIFETIME = 10;
+        public const int LIFETIME = 200;
 
         public static SymmetricSecurityKey GetSecurityKey(string key)
         {
-            return new SymmetricSecurityKey(Encoding.ASCII.GetBytes(key));
+            return new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
         }
     }
 }

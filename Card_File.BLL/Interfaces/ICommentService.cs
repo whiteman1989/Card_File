@@ -11,9 +11,8 @@ namespace Card_File.BLL.Interfaces
         Task CreateCommentAsync(CommentDto comment);
         Task UpdateCommentAsync(CommentDto comment);
         //TODO Add pagination system
-        Task<IEnumerable<CommentDto>> GetCommentsByMaterialIdAsync(int materialId, int count = 0, bool showHiden = false);
+        Task<IEnumerable<CommentDto>> GetCommentsByMaterialIdAsync(int materialId, int count = 0, bool showHidden = false);
         //TODO Add pagination system
-        Task<IEnumerable<CommentDto>> GetCommentsByUserIdAsync(string userId, bool showHiden = false);
         Task<CommentDto> GetCommentByIdAsync(int id);
         Task DeleteCommentByIdAsync(int id);
         Task UnhideCommentByIdAsync(int id);
