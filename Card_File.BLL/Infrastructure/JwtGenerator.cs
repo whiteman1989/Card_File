@@ -23,7 +23,7 @@ namespace Card_File.BLL.Infrastructure
 		{
 			var claims = new List<Claim>
 			{
-				new Claim(ClaimsIdentity.DefaultNameClaimType, user.UserName)
+				new Claim(ClaimsIdentity.DefaultNameClaimType, user.Id),
 			};
 
 			if (roles != null && roles.Any())

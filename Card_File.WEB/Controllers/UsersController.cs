@@ -37,10 +37,11 @@ namespace Card_File.WEB.Controllers
             return Ok(result);
         }
         
+        [Authorize]
         [HttpGet("currentId")]
         public async Task<ActionResult<string>> GetId()
         {
-            var user = User.Identity.Name;
+            var user = $"id: {User.Identity.Name}";
             return Ok(user);
         }
     }

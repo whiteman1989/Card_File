@@ -1,3 +1,4 @@
+using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -42,6 +43,7 @@ namespace Card_File.WEB
                         ValidateLifetime = true,
                         IssuerSigningKey = AuthOption.GetSecurityKey(Configuration["AuthOptions:Key"]),
                         ValidateIssuerSigningKey = true,
+                        ClockSkew = TimeSpan.Zero
                     };
                 });
             services.AddControllersWithViews();
