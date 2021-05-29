@@ -11,7 +11,7 @@ namespace Card_File.BLL.Infrastructure
     {
         public const string ISSUER = "CardFileServer";
         public const string AUDIENCE = "CardFileClient";
-        public const int LIFETIME = 1;
+        public const int LIFETIME = 5;
 
         public static SymmetricSecurityKey GetSecurityKey(string key)
         {

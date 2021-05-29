@@ -38,7 +38,7 @@ namespace Card_File.BLL.Services
                 roles = await _userManager.GetRolesAsync(user);
             }
             
-            if (user is object)
+            if (user is not null)
             {
                 var result = await _signInManager.CheckPasswordSignInAsync(user, loginQuery.Password, false);
                 if(result.Succeeded)
@@ -46,7 +46,8 @@ namespace Card_File.BLL.Services
                     return new UserSesion
                     {
                         Email = user.Email,
-                        Token = _jwtGenerator.CreateToken(user, roles)
+                        UserName =  user.UserName,
+                        Token = _jwtGenerator.CreateToken(user, roles),
                     };
                 }
             }
@@ -66,10 +67,21 @@ namespace Card_File.BLL.Services
                 return new UserSesion
                 {
                     Email = user.Email,
-                    Token = "bbbb",
+                    UserName = user.UserName,
                 };
             }
             throw new ValidationException("User creation failed", nameof(registerQuery));
+        }
+
+        public async Task<IEnumerable<string>> GetRolesByNameAsync(string userName)
+        {
+            var user = await _userManager.FindByNameAsync(userName);
+            IEnumerable<string> roles = new List<string>();
+            if (user != null)
+            {
+                roles = await _userManager.GetRolesAsync(user);
+            }
+            return roles;
         }
     }
 }

@@ -22,7 +22,7 @@ namespace Card_File.BLL.Infrastructure
 			
 			foreach (var role in roles)
 			{
-				if (await roleManager.RoleExistsAsync(role)!)
+				if (!(await roleManager.RoleExistsAsync(role)))
 				{
 					var t = roleManager.CreateAsync(new IdentityRole(role));
 					t.Wait();
